@@ -3,9 +3,7 @@ name: Meadow.Logging Latest Binaries
 on:
   workflow_dispatch:
   push:
-    branches: [ logging ]
-    tags:
-      - "logging*"
+    branches: [ develop ]
 jobs:
   build:
 
