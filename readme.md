@@ -3,6 +3,7 @@
 ## Status
 
 [![CI Build](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml)
+[![Meadow.Logging Latest Binaries](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml)
 
 ## Summary
 
