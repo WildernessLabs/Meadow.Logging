@@ -1,4 +1,10 @@
-# `Meadow.Logging` Library
+# Meadow.Logging Library
+
+## Status
+
+[![CI Build](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml)
+
+## Summary
 
 Many good logging libraries already exist in the .NET development community, so why `Meadow.Logging`?  
 
