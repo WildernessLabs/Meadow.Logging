@@ -22,7 +22,7 @@ jobs:
     - name: Build ZIP
       uses: vimtor/action-zip@v1
       with:
-          files: ./output/Maple.Server.dll
+          files: ./output/Meadow.Logging.dll
           dest: logging.zip
           
     - name: Create assets
@@ -30,8 +30,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: https://uploads.github.com/repos/WildernessLabs/Meadow.Foundation/releases/57597674/assets{?name,label} # find out this value by opening https://api.github.com/repos/<owner>/<repo>/releases in your browser and copy the full "upload_url" value including the {?name,label} part
-        release_id: 57597674 # same as above (id can just be taken out the upload_url, it's used to find old releases)
+        upload_url: https://uploads.github.com/repos/WildernessLabs/Meadow.Logging/releases/60516893/assets{?name,label} # find out this value by opening https://api.github.com/repos/<owner>/<repo>/releases in your browser and copy the full "upload_url" value including the {?name,label} part
+        release_id: 60516893 # same as above (id can just be taken out the upload_url, it's used to find old releases)
         asset_path: ./logging.zip # path to archive to upload
         asset_name: logging-develop-$$.zip # name to upload the release as, use $$ to insert date (YYYYMMDD) and 6 letter commit hash
         asset_content_type: application/zip # required by GitHub API
