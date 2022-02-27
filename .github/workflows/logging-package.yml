@@ -1,11 +1,6 @@
 name: Meadow.Logging Package creation
 
 on:
-  workflow_dispatch:
-    inputs:
-      tags:
-        description: 'tag'     
-        required: true  
   push:
     tags:
     - "v[0-9]+.[0-9]+.[0-9]"
