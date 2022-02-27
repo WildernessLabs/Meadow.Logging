@@ -1,4 +1,4 @@
-name: Meadow.Logging Package creation
+name: NuGet Package Creation
 
 on:
   push:
