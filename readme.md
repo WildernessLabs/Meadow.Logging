@@ -1,9 +1,10 @@
 # Meadow.Logging Library
 
-## Status
+## Repo Status
 
 [![CI Build](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml)  
-[![Meadow.Logging Latest Binaries](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml)
+[![Meadow.Logging Latest Binaries](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml)  
+[![NuGet Package Creation](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/package.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/package.yml)
 
 ## Summary
 
