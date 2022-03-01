@@ -18,6 +18,6 @@ jobs:
     - name: Pack
       run: dotnet pack -c Release lib/Meadow.Logging.csproj /p:Version=${VERSION} --output .
     - name: Push
-      run: dotnet nuget push Meadow.Logging.${VERSION}.nupkg -s https://api.nuget.org/v3/index.json -k ${GITHUB_TOKEN}
+      run: dotnet nuget push Meadow.Logging.${VERSION}.nupkg -s https://api.nuget.org/v3/index.json -k ${NUGET_TOKEN}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.NUGET_TOKEN }}
