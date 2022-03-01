@@ -20,4 +20,4 @@ jobs:
     - name: Push
       run: dotnet nuget push Meadow.Logging.${VERSION}.nupkg -s https://api.nuget.org/v3/index.json -k ${NUGET_TOKEN}
       env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_TOKEN }}
+        NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
