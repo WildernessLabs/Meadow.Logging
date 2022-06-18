@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets the current log level
         /// </summary>
-        public Loglevel Loglevel { get; set; } = Loglevel.Error;
+        public LogLevel Loglevel { get; set; } = LogLevel.Error;
 
         /// <summary>
         /// Creates a Logger instance
@@ -53,12 +53,31 @@
         }
 
         /// <summary>
+        /// Sends a Verbose-level message to all ILogProviders
+        /// </summary>
+        /// <param name="message">The message to send to Providers</param>
+        public void Verbose(string message)
+        {
+            Log(LogLevel.Verbose, message);
+        }
+
+        /// <summary>
+        /// Conditionally sends a Verbose-level message to all ILogProviders
+        /// </summary>
+        /// <param name="condition">The message will be sent to Providers only when this is true</param>
+        /// <param name="message">The message to send to Providers</param>
+        public void VerboseIf(bool condition, string message)
+        {
+            if (condition) Log(LogLevel.Verbose, message);
+        }
+
+        /// <summary>
         /// Sends a Debug-level message to all ILogProviders
         /// </summary>
         /// <param name="message">The message to send to Providers</param>
         public void Debug(string message)
         {
-            Log(Loglevel.Debug, message);
+            Log(LogLevel.Debug, message);
         }
 
         /// <summary>
@@ -68,7 +87,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void DebugIf(bool condition, string message)
         {
-            if (condition) Log(Loglevel.Debug, message);
+            if (condition) Log(LogLevel.Debug, message);
         }
 
         /// <summary>
@@ -77,7 +96,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void Info(string message)
         {
-            Log(Loglevel.Info, message);
+            Log(LogLevel.Info, message);
         }
 
         /// <summary>
@@ -87,7 +106,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void InfoIf(bool condition, string message)
         {
-            if (condition) Log(Loglevel.Info, message);
+            if (condition) Log(LogLevel.Info, message);
         }
 
         /// <summary>
@@ -96,7 +115,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void Warn(string message)
         {
-            Log(Loglevel.Warning, message);
+            Log(LogLevel.Warning, message);
         }
 
         /// <summary>
@@ -106,7 +125,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void WarnIf(bool condition, string message)
         {
-            if (condition) Log(Loglevel.Warning, message);
+            if (condition) Log(LogLevel.Warning, message);
         }
 
         /// <summary>
@@ -115,7 +134,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void Error(string message)
         {
-            Log(Loglevel.Error, message);
+            Log(LogLevel.Error, message);
         }
 
         /// <summary>
@@ -125,12 +144,12 @@
         /// <param name="message">The message to send to Providers</param>
         public void ErrorIf(bool condition, string message)
         {
-            if (condition) Log(Loglevel.Error, message);
+            if (condition) Log(LogLevel.Error, message);
         }
 
-        private void Log(Loglevel level, string message)
+        private void Log(LogLevel level, string message)
         {
-            if (Loglevel < level) return;
+            if (Loglevel > level) return;
 
             lock (_providers)
             {

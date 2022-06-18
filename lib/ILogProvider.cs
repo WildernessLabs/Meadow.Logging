@@ -10,6 +10,6 @@
         /// </summary>
         /// <param name="level">The LogLevel for the message</param>
         /// <param name="message">The message to log</param>
-        void Log(Loglevel level, string message);
+        void Log(LogLevel level, string message);
     }
 }

@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="level">The LogLevel for the message</param>
         /// <param name="message">The message to log</param>
-        public void Log(Loglevel level, string message)
+        public void Log(LogLevel level, string message)
         {
             System.Diagnostics.Debug.WriteLine($"{level.ToString().ToUpper()}: {message}");
         }
