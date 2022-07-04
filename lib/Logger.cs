@@ -53,22 +53,22 @@
         }
 
         /// <summary>
-        /// Sends a Verbose-level message to all ILogProviders
+        /// Sends a Trace-level message to all ILogProviders
         /// </summary>
         /// <param name="message">The message to send to Providers</param>
-        public void Verbose(string message)
+        public void Trace(string message)
         {
-            Log(LogLevel.Verbose, message);
+            Log(LogLevel.Trace, message);
         }
 
         /// <summary>
-        /// Conditionally sends a Verbose-level message to all ILogProviders
+        /// Conditionally sends a Trace-level message to all ILogProviders
         /// </summary>
         /// <param name="condition">The message will be sent to Providers only when this is true</param>
         /// <param name="message">The message to send to Providers</param>
-        public void VerboseIf(bool condition, string message)
+        public void TraceIf(bool condition, string message)
         {
-            if (condition) Log(LogLevel.Verbose, message);
+            if (condition) Log(LogLevel.Trace, message);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void Info(string message)
         {
-            Log(LogLevel.Info, message);
+            Log(LogLevel.Information, message);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@
         /// <param name="message">The message to send to Providers</param>
         public void InfoIf(bool condition, string message)
         {
-            if (condition) Log(LogLevel.Info, message);
+            if (condition) Log(LogLevel.Information, message);
         }
 
         /// <summary>

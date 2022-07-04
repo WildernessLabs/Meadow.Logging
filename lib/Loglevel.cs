@@ -10,9 +10,9 @@
         /// </summary>
         None,
         /// <summary>
-        /// Verbose or higher
+        /// Trace or higher
         /// </summary>
-        Verbose,
+        Trace,
         /// <summary>
         /// Debug or higher
         /// </summary>
@@ -20,7 +20,7 @@
         /// <summary>
         /// Info or higher
         /// </summary>
-        Info,
+        Information,
         /// <summary>
         /// Warning or higher
         /// </summary>
