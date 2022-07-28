@@ -1,12 +1,33 @@
 ﻿namespace Meadow.Logging
 {
-    public enum Loglevel
+    /// <summary>
+    /// Logging Level
+    /// </summary>
+    public enum LogLevel
     {
-        None,
+        /// <summary>
+        /// Trace or higher
+        /// </summary>
+        Trace,
+        /// <summary>
+        /// Debug or higher
+        /// </summary>
         Debug,
-        Info,
+        /// <summary>
+        /// Info or higher
+        /// </summary>
+        Information,
+        /// <summary>
+        /// Warning or higher
+        /// </summary>
         Warning,
+        /// <summary>
+        /// Error or higher
+        /// </summary>
         Error,
-        Always
+        /// <summary>
+        /// No logging (disabled)
+        /// </summary>
+        None = 99
     }
 }
