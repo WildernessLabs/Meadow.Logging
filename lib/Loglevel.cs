@@ -6,10 +6,6 @@
     public enum LogLevel
     {
         /// <summary>
-        /// No logging (disabled)
-        /// </summary>
-        None,
-        /// <summary>
         /// Trace or higher
         /// </summary>
         Trace,
@@ -28,6 +24,10 @@
         /// <summary>
         /// Error or higher
         /// </summary>
-        Error
+        Error,
+        /// <summary>
+        /// No logging (disabled)
+        /// </summary>
+        None = 99
     }
 }
