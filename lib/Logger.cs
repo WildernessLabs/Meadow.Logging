@@ -1,4 +1,6 @@
-﻿namespace Meadow.Logging
+﻿using System;
+
+namespace Meadow.Logging
 {
     /// <summary>
     /// Class encapsulating logging providers and functions
@@ -6,6 +8,10 @@
     public class Logger
     {
         private LogProviderCollection _providers = new LogProviderCollection();
+
+        private readonly int _startupTicks;
+
+        public bool ShowTicks { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the current log level
@@ -38,6 +44,7 @@
         /// </summary>
         public Logger()
         {
+            _startupTicks = Environment.TickCount;
         }
 
         /// <summary>
@@ -151,10 +158,22 @@
         {
             if (Loglevel > level) return;
 
+            TimeSpan? now = null;
+
             lock (_providers)
             {
+                if (ShowTicks)
+                {
+                    now = TimeSpan.FromMilliseconds(Environment.TickCount - _startupTicks);
+                }
+
                 foreach (var p in _providers)
                 {
+                    if (now != null)
+                    {
+                        message = $"[+{now:h\\:m\\:ss\\.FFF}] {message}";
+                    }
+
                     p.Log(level, message);
                 }
             }
