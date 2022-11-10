@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -9,8 +9,8 @@
     <Company>Wilderness Labs, Inc</Company>
     <PackageProjectUrl>https://github.com/WildernessLabs/Meadow.Logging</PackageProjectUrl>
     <PackageId>Meadow.Logging</PackageId>
-    <PackageIconUrl>https://github.com/WildernessLabs/Meadow.Foundation/blob/master/Source/icon.png?raw=true</PackageIconUrl>
-    <RepositoryUrl>https://github.com/WildernessLabs/Meadow.Logging</RepositoryUrl>
+	  <PackageIcon>icon.png</PackageIcon>
+	  <RepositoryUrl>https://github.com/WildernessLabs/Meadow.Logging</RepositoryUrl>
     <PackageTags>Meadow</PackageTags>
     <Description>Wilderness Labs ultra-lightweight logging library</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
