@@ -55,29 +55,29 @@ A simple example of `Console` output would look like this:
 ```
 static void Main()
 {
-	var logger = new Logger(new ConsoleLogProvider());
-	var App = new App(logger);
+    var logger = new Logger(new ConsoleLogProvider());
+    var App = new App(logger);
 
-	app.DoStuff();
+    app.DoStuff();
 }
 
 class App
 {
-	Logger Logger { get; init; }
+    Logger Logger { get; init; }
 
-	App(Logger logger)
-	{
-		Logger = logger;
-	}
+    App(Logger logger)
+    {
+        Logger = logger;
+    }
 
-	public void DoStuff()
-	{
-		while(true)
-		{
-			Logger.Debug("tick");
-			Thread.Sleep(1000);
-		}
-	}
+    public void DoStuff()
+    {
+        while(true)
+        {
+            Logger.Debug("tick");
+            Thread.Sleep(1000);
+        }
+    }
 }
 
 ```
@@ -87,11 +87,11 @@ class App
 The `Logger` allows you to add 0:N `ILogProvider` instances, and all of them get called when ap application makes a logging call.  For example, your application may want to output to both the Console and a UDP broadcast.  You can achieve this by simply registering multiple providers:
 
 ```
-	var logger = new Logger();
-	logger.AddProvider(new ConsoleLogProvider());
-	logger.AddProvider(new UdpLogProvider());
-	...
-	logger.Info("This message will get delivered to all Providers");
+var logger = new Logger();
+logger.AddProvider(new ConsoleLogProvider());
+logger.AddProvider(new UdpLogProvider());
+...
+logger.Info("This message will get delivered to all Providers");
 ```
 
 ### Conditional Output Using LogLevel
@@ -99,15 +99,15 @@ The `Logger` allows you to add 0:N `ILogProvider` instances, and all of them get
 Logger-wide output can be controlled using the `LogLevel` property.  Log output will occur for any level *at or above* the currently set level.
 
 ```
-	var logger = new Logger(new ConsoleLogProvider());
-	...
-	logger.Loglevel = LogLevel.Debug;
-	logger.Debug("This debug message will get delivered to all Providers");
-	logger.Warn("This warning message will get delivered to all Providers");
-	...
-	logger.Loglevel = LogLevel.Info;
-	logger.Debug("This debug message will *not* get delivered to any Providers");
-	logger.Warn("This warning message will still get delivered to all Providers");
+var logger = new Logger(new ConsoleLogProvider());
+...
+logger.Loglevel = LogLevel.Debug;
+logger.Debug("This debug message will get delivered to all Providers");
+logger.Warn("This warning message will get delivered to all Providers");
+...
+logger.Loglevel = LogLevel.Info;
+logger.Debug("This debug message will *not* get delivered to any Providers");
+logger.Warn("This warning message will still get delivered to all Providers");
 ```
 
 ### Conditional Output Using Runtime Checks 
@@ -115,12 +115,12 @@ Logger-wide output can be controlled using the `LogLevel` property.  Log output 
 Occasionally you may want to keep a given log level, but output information based on a runtime check.  All of the logging outputs support this as well.
 
 ```
-	var logger = new Logger(new ConsoleLogProvider());
-	bool logCondition = true;
-	...
-	logger.Debug("This debug message will get delivered to all Providers");
-	logger.Debug(logCondition, "This debug message will also get delivered to all Providers");
-	bool logCondition = false;
-	logger.Debug("This debug message will also get delivered to all Providers");
-	logger.Debug(logCondition, "This debug message will *not* get delivered to any Providers");
+var logger = new Logger(new ConsoleLogProvider());
+bool logCondition = true;
+...
+logger.Debug("This debug message will get delivered to all Providers");
+logger.Debug(logCondition, "This debug message will also get delivered to all Providers");
+bool logCondition = false;
+logger.Debug("This debug message will also get delivered to all Providers");
+logger.Debug(logCondition, "This debug message will *not* get delivered to any Providers");
 ```
