@@ -11,6 +11,9 @@ namespace Meadow.Logging
 
         private readonly int _startupTicks;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to show ticks in log messages
+        /// </summary>
         public bool ShowTicks { get; set; } = false;
 
         /// <summary>
