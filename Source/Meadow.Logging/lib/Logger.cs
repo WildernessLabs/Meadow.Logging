@@ -19,7 +19,7 @@ namespace Meadow.Logging
         /// <summary>
         /// Gets or sets the current log level
         /// </summary>
-        public LogLevel Loglevel { get; set; } = LogLevel.Error;
+        public LogLevel LogLevel { get; set; } = LogLevel.Error;
 
         /// <summary>
         /// Creates a Logger instance
@@ -159,7 +159,7 @@ namespace Meadow.Logging
 
         private void Log(LogLevel level, string message)
         {
-            if (Loglevel > level) return;
+            if (LogLevel > level) return;
 
             TimeSpan? now = null;
 
