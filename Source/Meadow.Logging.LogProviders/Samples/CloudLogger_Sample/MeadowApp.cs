@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
-using Meadow.Logging;
 
-namespace ClassLibrary1;
+namespace Meadow.Logging.Samples;
 
 public class MeadowApp : App<F7FeatherV2>
 {
