@@ -5,16 +5,12 @@
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <AssemblyName>App</AssemblyName>
         <LangVersion>10</LangVersion>
-        <RootNamespace>ClassLibrary1</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\implementations\f7\Meadow.F7\Meadow.F7.csproj" />
         <ProjectReference Include="..\..\Driver\Meadow.Logging.LogProviders.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <None Update="meadow.config.yaml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
         <None Update="meadow.config.yaml">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
