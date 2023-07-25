@@ -21,14 +21,17 @@ public class MeadowApp : App<F7FeatherV2>
         Random r = new Random();
         while (true)
         {
+            // send a cloud log
             Resolver.Log.Info($"log loop {count++}");
             
-            // var cl = Resolver.Services.Get<CloudLogger>();
-            // cl.LogEvent(0, "my first event", new Dictionary<string, object>()
-            // {
-            //     { "temperature", r.Next(80, 110) },
-            //     { "city", "log angeles" }
-            // });
+            // send a cloud event
+            var cl = Resolver.Services.Get<CloudLogger>();
+            cl.LogEvent(0, "my first event", new Dictionary<string, object>()
+            {
+                { "temperature", r.Next(80, 110) },
+                { "city", "log angeles" }
+            });
+            
             await Task.Delay(60 * 1000);
         }
     }
