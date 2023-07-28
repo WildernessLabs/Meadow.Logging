@@ -1,6 +1,6 @@
-<img src="Design/banner.jpg" style="margin-bottom:10px" />
+<img src="Design/meadow.logging.jpg" alt="iot, dotnet, meadow, meadow-logging" style="margin-bottom:10px" />
 
-# Meadow.Logging Library
+# Meadow.Logging
 
 Many good logging libraries already exist in the .NET development community, so why `Meadow.Logging`?  
 
