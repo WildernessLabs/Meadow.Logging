@@ -1,9 +1,9 @@
-name: Build Logging
+name: Develop Build
 
 on:
   workflow_dispatch:
   push:
-    branches: [ develop, main ]
+    branches: [ develop ]
   pull_request:
     branches: [ develop ]
 
