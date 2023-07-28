@@ -1,0 +1,10 @@
+﻿Logging:
+  LogLevel:
+    Default: Trace
+Lifecycle:
+  ResetOnAppFailure: false
+Update:
+  Enabled: false
+#MeadowCloud:
+#  Hostname: https://staging.meadowcloud.dev
+#  DataHostname: https://dev-meadow-cloud-functions.azurewebsites.net
