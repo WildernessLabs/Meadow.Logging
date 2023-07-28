@@ -1,3 +1,6 @@
+[![NuGet Badge](https://buildstats.info/nuget/Meadow.Logging)](https://www.nuget.org/packages/Meadow.Logging)
+[![Develop Branch](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/ci-develop-push.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/ci-develop-push.yml)
+
 <img src="Design/meadow.logging.jpg" alt="iot, dotnet, meadow, meadow-logging" style="margin-bottom:10px" />
 
 # Meadow.Logging
@@ -7,7 +10,6 @@ Many good logging libraries already exist in the .NET development community, so 
 The primary driver is that `Meadow` is designed to run on microcontrollers, where storage and memory resources are limited.  Most existing libraries provide a wide array of capabilties and features, but at the cost of size.  `Meadow.Logging` is intended to be very, very lean, only exposing the minimal set of what might be needed by a typical Meadow application, but still completely usable in larger, non-Meadow application scenarios.
 
 ## Contents
-* [Repo Status](#repo-status)
 * [Logger](#logger)
 * [ILogProvider](#ilogprovider)
 * [Usage](#usage)
@@ -15,12 +17,6 @@ The primary driver is that `Meadow` is designed to run on microcontrollers, wher
   * [Using Multiple `ILogProvider`s](#using-multiple-ilogproviders)
   * [Conditional Output Using LogLevel](#conditional-output-using-loglevel)
   * [Conditional Output Using Runtime Checks](#conditional-output-using-runtime-checks)
-
-## Repo Status
-
-[![CI Build](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-build.yml)  
-[![Meadow.Logging Latest Binaries](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/logging-binaries.yml)  
-[![NuGet Package Creation](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/package.yml/badge.svg)](https://github.com/WildernessLabs/Meadow.Logging/actions/workflows/package.yml)
 
 ## `Logger`
 
