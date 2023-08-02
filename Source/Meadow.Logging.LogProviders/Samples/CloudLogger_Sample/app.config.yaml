@@ -6,5 +6,5 @@ Lifecycle:
 Update:
   Enabled: false
 #MeadowCloud:
-#  Hostname: https://staging.meadowcloud.dev
-#  DataHostname: https://dev-meadow-cloud-functions.azurewebsites.net
+#  Hostname: 
+#  DataHostname: 
