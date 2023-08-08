@@ -2,9 +2,8 @@ name: Develop Build
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ develop ]
   pull_request:
+  push:
     branches: [ develop ]
 
 jobs:
@@ -17,7 +16,6 @@ jobs:
     - name: Checkout Meadow.Logging
       uses: actions/checkout@v3
       with:
-        path: Meadow.Logging
         ref: develop
 
     - name: Setup .NET
