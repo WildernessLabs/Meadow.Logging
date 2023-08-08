@@ -26,4 +26,4 @@ jobs:
         dotnet-version: 7.0.x
 
     - name: Build
-      run: dotnet build -c Release Source/Meadow.Logging/lib/Meadow.Logging.csproj
+      run: dotnet build -c Release Source/Meadow.Logging/Meadow.Logging.sln
