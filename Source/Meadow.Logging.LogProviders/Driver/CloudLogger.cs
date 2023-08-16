@@ -11,6 +11,11 @@ namespace Meadow.Logging;
 
 public class CloudLogger : ILogProvider
 {
+    /// <summary>
+    /// Instantiate a new CloudLogger
+    /// </summary>
+    /// <param name="level">Minimum level to log (cannot be lower than Information)</param>
+    /// <exception cref="ArgumentException"></exception>
     public CloudLogger(LogLevel level = LogLevel.Information)
     {
         if (level <= LogLevel.Debug)
@@ -35,12 +40,26 @@ public class CloudLogger : ILogProvider
         }
     }
 
+    /// <summary>
+    /// Path to the log file
+    /// </summary>
     public string LogFilePath { get; protected set; }
+    /// <summary>
+    /// Path to the event file
+    /// </summary>
     public string EventFilePath { get; protected set; }
+    /// <summary>
+    /// Current minimum level for the CloudLogger
+    /// </summary>
     public LogLevel MinLevel { get; protected set; }
     private char delim = '|';
     static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
+    /// <summary>
+    /// Send a log message to Meadow.Cloud.
+    /// </summary>
+    /// <param name="level">LogLevel</param>
+    /// <param name="message">Message of the log</param>
     public async void Log(LogLevel level, string message)
     {
         if (level >= MinLevel)
@@ -56,6 +75,29 @@ public class CloudLogger : ILogProvider
         }
     }
 
+    /// <summary>
+    /// Log an exception.
+    /// </summary>
+    /// <param name="ex"></param>
+    public async void LogException(Exception ex)
+    {
+        var log = new CloudLog()
+        {
+            Severity = LogLevel.Error.ToString(),
+            Exception = ex.StackTrace,
+            Message = ex.Message,
+            Timestamp = DateTime.UtcNow
+        };
+        
+        Send(LogFilePath, log, Resolver.MeadowCloudService.SendLog);
+    }
+
+    /// <summary>
+    /// Log an event.
+    /// </summary>
+    /// <param name="eventId">id used for a set of events.</param>
+    /// <param name="description">Description of the event.</param>
+    /// <param name="measurements">Dynamic payload of measurements to be recorded.</param>
     public async void LogEvent(int eventId, string description, Dictionary<string, object> measurements)
     {
         var cloudEvent = new CloudEvent()
