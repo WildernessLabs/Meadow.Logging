@@ -1,5 +1,6 @@
-﻿<Project Sdk="Meadow.Sdk/1.1.0">
+<Project Sdk="Meadow.Sdk/1.1.0">
   <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OutputType>Library</OutputType>
     <AssemblyName>Meadow.LogProviders</AssemblyName>
@@ -14,7 +15,7 @@
 	  <Version>0.9.54</Version>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <Description>Implementations of the Meadow ILogger interface</Description>
-	  <LangVersion>10</LangVersion>
+    <LangVersion>10.0</LangVersion>
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
