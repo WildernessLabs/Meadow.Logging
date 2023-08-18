@@ -1,16 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-	  <RepositoryType>git</RepositoryType>
-	  <PackageIcon>icon.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>icon.png</PackageIcon>
     <Version>0.29.0</Version>
     <AssemblyName>Meadow.Logging</AssemblyName>
     <Company>Wilderness Labs, Inc</Company>
     <PackageProjectUrl>https://github.com/WildernessLabs/Meadow.Logging</PackageProjectUrl>
     <PackageId>Meadow.Logging</PackageId>
-	  <PackageIcon>icon.png</PackageIcon>
-	  <RepositoryUrl>https://github.com/WildernessLabs/Meadow.Logging</RepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/WildernessLabs/Meadow.Logging</RepositoryUrl>
     <PackageTags>Meadow</PackageTags>
     <Description>Wilderness Labs ultra-lightweight logging library</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -18,12 +17,10 @@
     <RootNamespace>Meadow</RootNamespace>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <None Update="icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>
