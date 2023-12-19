@@ -30,7 +30,8 @@ public class FileLogger : ILogProvider
         LogFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "meadow.log");
         if (!File.Exists(LogFilePath))
         {
-            File.Create(LogFilePath).Close();
+            using FileStream fs = File.Create(LogFilePath);
+            fs.Close();
         }
     }
 
@@ -74,6 +75,7 @@ public class FileLogger : ILogProvider
     /// </summary>
     public void TruncateLog()
     {
-        File.Create(LogFilePath).Close();
+        using FileStream fs = File.Create(LogFilePath);
+        fs.Close();
     }
 }
