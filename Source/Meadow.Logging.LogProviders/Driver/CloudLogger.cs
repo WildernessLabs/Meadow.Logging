@@ -30,13 +30,15 @@ public class CloudLogger : ILogProvider
         LogFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "cloud.log");
         if (!File.Exists(LogFilePath))
         {
-            File.Create(LogFilePath).Close();
+            using FileStream fs = File.Create(LogFilePath);
+            fs.Close();
         }
         
         EventFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "events.log");
         if (!File.Exists(EventFilePath))
         {
-            File.Create(EventFilePath).Close();
+            using FileStream fs = File.Create(EventFilePath);
+            fs.Close();
         }
     }
 
@@ -52,7 +54,6 @@ public class CloudLogger : ILogProvider
     /// Current minimum level for the CloudLogger
     /// </summary>
     public LogLevel MinLevel { get; protected set; }
-    private char delim = '|';
     static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
     /// <summary>
@@ -71,7 +72,7 @@ public class CloudLogger : ILogProvider
                 Timestamp = DateTime.UtcNow
             };
             
-            Send(LogFilePath, cloudLog, Resolver.MeadowCloudService.SendLog);
+            await Send(LogFilePath, cloudLog, Resolver.MeadowCloudService.SendLog);
         }
     }
 
@@ -89,7 +90,7 @@ public class CloudLogger : ILogProvider
             Timestamp = DateTime.UtcNow
         };
         
-        Send(LogFilePath, log, Resolver.MeadowCloudService.SendLog);
+        await Send(LogFilePath, log, Resolver.MeadowCloudService.SendLog);
     }
 
     /// <summary>
@@ -108,10 +109,10 @@ public class CloudLogger : ILogProvider
             Timestamp = DateTime.UtcNow
         };
         
-        Send(EventFilePath, cloudEvent, Resolver.MeadowCloudService.SendEvent);
+        await Send(EventFilePath, cloudEvent, Resolver.MeadowCloudService.SendEvent);
     }
 
-    private async void Send<T>(string file, T item, Func<T, Task> sendFunc)
+    private async Task Send<T>(string file, T item, Func<T, Task> sendFunc)
     {
         var serializeOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
         
@@ -142,7 +143,8 @@ public class CloudLogger : ILogProvider
                         }
                     }
 
-                    File.Create(file).Close();
+                    using FileStream fs = File.Create(file);
+                    fs.Close();
                     Resolver.Log.Debug($"cleared stored {typeof(T)}");
                 }
 
