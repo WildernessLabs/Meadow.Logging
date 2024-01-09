@@ -1,27 +1,29 @@
-﻿<Project Sdk="Meadow.Sdk/1.1.0">
+<Project Sdk="Meadow.Sdk/1.1.0">
   <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OutputType>Library</OutputType>
     <AssemblyName>Meadow.LogProviders</AssemblyName>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
-	  <Authors>Wilderness Labs, Inc</Authors>
-	  <Company>Wilderness Labs, Inc</Company>
-	  <PackageProjectUrl>http://developer.wildernesslabs.co/Meadow/Meadow.Foundation/</PackageProjectUrl>
-	  <PackageId>Meadow.Logging.LogProviders</PackageId>
-	  <PackageIcon>icon.png</PackageIcon>
-	  <RepositoryUrl>https://github.com/WildernessLabs/Meadow.Foundation</RepositoryUrl>
-	  <PackageTags>Meadow,Meadow.Foundation,ILogger,Logger,UdpLogger</PackageTags>
-	  <Version>0.9.54</Version>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Description>Implementations of the Meadow ILogger interface</Description>
-	  <LangVersion>10</LangVersion>
-	  <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Authors>Wilderness Labs, Inc</Authors>
+    <Company>Wilderness Labs, Inc</Company>
+    <PackageProjectUrl>http://developer.wildernesslabs.co/Meadow/Meadow.Foundation/</PackageProjectUrl>
+    <PackageId>Meadow.Logging.LogProviders</PackageId>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/WildernessLabs/Meadow.Foundation</RepositoryUrl>
+    <PackageTags>Meadow,Meadow.Foundation,ILogger,Logger,UdpLogger</PackageTags>
+    <Version>1.6.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Implementations of the Meadow ILogger interface</Description>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-	  <None Include="..\..\icon.png" Pack="true" PackagePath="" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Meadow.Contracts\Source\Meadow.Contracts\Meadow.Contracts.csproj" />
+    <ProjectReference Include="..\..\Meadow.Logging\lib\Meadow.Logging.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
