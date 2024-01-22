@@ -1,3 +1,4 @@
+using Meadow.Cloud;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,7 +6,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Meadow.Cloud;
 
 namespace Meadow.Logging;
 
@@ -33,7 +33,7 @@ public class CloudLogger : ILogProvider
             using FileStream fs = File.Create(LogFilePath);
             fs.Close();
         }
-        
+
         EventFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "events.log");
         if (!File.Exists(EventFilePath))
         {
@@ -54,14 +54,11 @@ public class CloudLogger : ILogProvider
     /// Current minimum level for the CloudLogger
     /// </summary>
     public LogLevel MinLevel { get; protected set; }
-    static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
-    /// <summary>
-    /// Send a log message to Meadow.Cloud.
-    /// </summary>
-    /// <param name="level">LogLevel</param>
-    /// <param name="message">Message of the log</param>
-    public async void Log(LogLevel level, string message)
+    private static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+
+    /// <inheritdoc/>
+    public async void Log(LogLevel level, string message, string? _)
     {
         if (level >= MinLevel)
         {
@@ -71,7 +68,7 @@ public class CloudLogger : ILogProvider
                 Message = message,
                 Timestamp = DateTime.UtcNow
             };
-            
+
             await Send(LogFilePath, cloudLog, Resolver.MeadowCloudService.SendLog);
         }
     }
@@ -89,7 +86,7 @@ public class CloudLogger : ILogProvider
             Message = ex.Message,
             Timestamp = DateTime.UtcNow
         };
-        
+
         await Send(LogFilePath, log, Resolver.MeadowCloudService.SendLog);
     }
 
@@ -108,14 +105,14 @@ public class CloudLogger : ILogProvider
             Measurements = measurements,
             Timestamp = DateTime.UtcNow
         };
-        
+
         await Send(EventFilePath, cloudEvent, Resolver.MeadowCloudService.SendEvent);
     }
 
     private async Task Send<T>(string file, T item, Func<T, Task> sendFunc)
     {
         var serializeOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-        
+
         var connected = Resolver.Device.NetworkAdapters.Any(a => a.IsConnected);
 
         if (connected)
