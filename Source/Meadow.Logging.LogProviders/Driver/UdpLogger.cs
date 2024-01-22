@@ -31,7 +31,7 @@ namespace Meadow.Logging
         }
 
         /// <inheritdoc/>
-        public void Log(LogLevel level, string message)
+        public void Log(LogLevel level, string message, string? _)
         {
             var payload = Encoding.UTF8.GetBytes($"{level}{_delimiter}{message}\n");
             _client.Send(payload, payload.Length, _broadcast);
