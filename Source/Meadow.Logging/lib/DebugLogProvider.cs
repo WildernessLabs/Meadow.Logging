@@ -5,14 +5,10 @@
     /// </summary>
     public class DebugLogProvider : ILogProvider
     {
-        /// <summary>
-        /// Called when the associated Logger has a message call
-        /// </summary>
-        /// <param name="level">The LogLevel for the message</param>
-        /// <param name="message">The message to log</param>
-        public void Log(LogLevel level, string message)
+        /// <inheritdoc/>
+        public void Log(LogLevel level, string message, string? messageGroup)
         {
-            System.Diagnostics.Debug.WriteLine($"{level.ToString().ToUpper()}: {message}");
+            System.Diagnostics.Debug.WriteLine($"({messageGroup}){level.ToString().ToUpper()}: {message}");
         }
     }
 }
