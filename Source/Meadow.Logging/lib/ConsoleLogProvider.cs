@@ -10,22 +10,37 @@ namespace Meadow.Logging
         /// <summary>
         /// When true, the current log level will be prefixed to all logged messages
         /// </summary>
-        public bool ShowLoglevel { get; set; } = false;
+        public bool ShowLogLevel { get; set; } = false;
 
         /// <summary>
-        /// Called when the associated Logger has a message call
+        /// When true, the current message group will be prefixed to all logged messages
         /// </summary>
-        /// <param name="level">The LogLevel for the message</param>
-        /// <param name="message">The message to log</param>
-        public void Log(LogLevel level, string message)
+        public bool ShowMessageGroup { get; set; } = false;
+
+        /// <inheritdoc/>
+        public void Log(LogLevel level, string message, string? messageGroup)
         {
-            if (ShowLoglevel)
+            if (ShowLogLevel)
             {
-                Console.WriteLine($"{level.ToString().ToUpper()}: {message}");
+                if (ShowMessageGroup)
+                {
+                    Console.WriteLine($"({messageGroup}) {level.ToString().ToUpper()}: {message}");
+                }
+                else
+                {
+                    Console.WriteLine($"{level.ToString().ToUpper()}: {message}");
+                }
             }
             else
             {
-                Console.WriteLine($"{message}");
+                if (ShowMessageGroup)
+                {
+                    Console.WriteLine($"({messageGroup}) {message}");
+                }
+                else
+                {
+                    Console.WriteLine($"{message}");
+                }
             }
         }
     }

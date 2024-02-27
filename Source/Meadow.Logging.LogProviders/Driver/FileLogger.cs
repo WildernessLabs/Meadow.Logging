@@ -36,7 +36,7 @@ public class FileLogger : ILogProvider
     }
 
     /// <inheritdoc/>
-    public void Log(LogLevel level, string message)
+    public void Log(LogLevel level, string message, string? _)
     {
         if (level != LogLevel.None && level >= MinimumLogLevel)
         {
