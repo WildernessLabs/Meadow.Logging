@@ -113,9 +113,10 @@ public class CloudLogger : ILogProvider
     {
         var serializeOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-        var connected = Resolver.Device.NetworkAdapters.Any(a => a.IsConnected);
+        var networkConnected = Resolver.Device.NetworkAdapters.Any(a => a.IsConnected);
+        var cloudConnected = Resolver.MeadowCloudService.ConnectionState == CloudConnectionState.Connected;
 
-        if (connected)
+        if (networkConnected && cloudConnected)
         {
             await semaphoreSlim.WaitAsync();
 
