@@ -33,17 +33,15 @@ namespace Meadow.Logging
         /// <inheritdoc/>
         public void Log(LogLevel level, string message, string? _)
         {
-            if (_client.Client.Connected)
+            var payload = Encoding.UTF8.GetBytes($"{level}{_delimiter}{message}\n");
+            try
             {
-                var payload = Encoding.UTF8.GetBytes($"{level}{_delimiter}{message}\n");
-                try
-                {
-                    _client.Send(payload, payload.Length, _broadcast);
-                }
-                catch 
-                {
-                    // TODO: ignore exceptions ?
-                }
+                _client.Send(payload, payload.Length, _broadcast);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"UDP ERR: {ex.Message}");
+                // TODO: ignore exceptions ?
             }
         }
 
