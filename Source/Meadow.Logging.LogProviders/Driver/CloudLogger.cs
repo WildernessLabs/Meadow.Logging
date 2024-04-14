@@ -1,14 +1,18 @@
 using Meadow.Cloud;
+using Meadow.Foundation.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Meadow.Logging;
 
+/// <summary>
+/// Provides functionality to log messages, exceptions, and events to the cloud.
+/// Messages are sent immediately if a network connection is available, or stored locally and sent when the connection is restored.
+/// </summary>
 public class CloudLogger : ILogProvider
 {
     /// <summary>
@@ -55,7 +59,7 @@ public class CloudLogger : ILogProvider
     /// </summary>
     public LogLevel MinLevel { get; protected set; }
 
-    private static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+    private static readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
     /// <inheritdoc/>
     public async void Log(LogLevel level, string message, string? _)
@@ -111,8 +115,6 @@ public class CloudLogger : ILogProvider
 
     private async Task Send<T>(string file, T item, Func<T, Task> sendFunc)
     {
-        var serializeOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-
         var networkConnected = Resolver.Device.NetworkAdapters.Any(a => a.IsConnected);
         var cloudConnected = Resolver.MeadowCloudService.ConnectionState == CloudConnectionState.Connected;
 
@@ -134,7 +136,8 @@ public class CloudLogger : ILogProvider
                             continue;
                         }
 
-                        var o = JsonSerializer.Deserialize<T>(line, serializeOptions);
+                        var o = MicroJson.Deserialize<T>(line);
+
                         if (o != null)
                         {
                             await sendFunc(o);
@@ -161,7 +164,8 @@ public class CloudLogger : ILogProvider
         }
         else
         {
-            var json = JsonSerializer.Serialize(item, serializeOptions);
+            var json = MicroJson.Serialize(item!);
+
             File.AppendAllLines(file, new[] { json });
             Resolver.Log.Debug($"saved cloud log to local store {json}");
         }
