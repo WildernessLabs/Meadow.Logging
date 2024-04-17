@@ -6,6 +6,9 @@ using System.Threading;
 
 namespace Meadow.Logging;
 
+/// <summary>
+/// Meadow.Cloud logging
+/// </summary>
 public class CloudLogger : ILogProvider
 {
     /// <summary>
@@ -23,36 +26,12 @@ public class CloudLogger : ILogProvider
         }
 
         MinLevel = level;
-
-        LogFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "cloud.log");
-        if (!File.Exists(LogFilePath))
-        {
-            using FileStream fs = File.Create(LogFilePath);
-            fs.Close();
-        }
-
-        EventFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "events.log");
-        if (!File.Exists(EventFilePath))
-        {
-            using FileStream fs = File.Create(EventFilePath);
-            fs.Close();
-        }
     }
-
-    /// <summary>
-    /// Path to the log file
-    /// </summary>
-    public string LogFilePath { get; protected set; }
-    /// <summary>
-    /// Path to the event file
-    /// </summary>
-    public string EventFilePath { get; protected set; }
+    
     /// <summary>
     /// Current minimum level for the CloudLogger
     /// </summary>
     public LogLevel MinLevel { get; protected set; }
-
-    private static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
     /// <inheritdoc/>
     public void Log(LogLevel level, string message, string? _)
