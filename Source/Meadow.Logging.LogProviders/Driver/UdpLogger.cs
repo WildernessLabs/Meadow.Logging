@@ -11,10 +11,10 @@ namespace Meadow.Logging
     public class UdpLogger : ILogProvider, IDisposable
     {
         private bool _isDisposed;
-        private int _port;
-        private UdpClient _client;
-        private IPEndPoint _broadcast;
-        private char _delimiter;
+        private readonly int _port;
+        private readonly UdpClient _client;
+        private readonly IPEndPoint _broadcast;
+        private readonly char _delimiter;
 
         /// <summary>
         /// Creates a UdpLogger instance
@@ -34,7 +34,15 @@ namespace Meadow.Logging
         public void Log(LogLevel level, string message, string? _)
         {
             var payload = Encoding.UTF8.GetBytes($"{level}{_delimiter}{message}\n");
-            _client.Send(payload, payload.Length, _broadcast);
+            try
+            {
+                _client.Send(payload, payload.Length, _broadcast);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"UDP ERR: {ex.Message}");
+                // TODO: ignore exceptions ?
+            }
         }
 
         /// <summary>
