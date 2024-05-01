@@ -2,13 +2,13 @@ using Meadow.Cloud;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.Json;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Meadow.Logging;
 
+/// <summary>
+/// Meadow.Cloud logging
+/// </summary>
 public class CloudLogger : ILogProvider
 {
     /// <summary>
@@ -26,50 +26,26 @@ public class CloudLogger : ILogProvider
         }
 
         MinLevel = level;
-
-        LogFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "cloud.log");
-        if (!File.Exists(LogFilePath))
-        {
-            using FileStream fs = File.Create(LogFilePath);
-            fs.Close();
-        }
-
-        EventFilePath = Path.Combine(Resolver.Device.PlatformOS.FileSystem.DocumentsDirectory, "events.log");
-        if (!File.Exists(EventFilePath))
-        {
-            using FileStream fs = File.Create(EventFilePath);
-            fs.Close();
-        }
     }
-
-    /// <summary>
-    /// Path to the log file
-    /// </summary>
-    public string LogFilePath { get; protected set; }
-    /// <summary>
-    /// Path to the event file
-    /// </summary>
-    public string EventFilePath { get; protected set; }
+    
     /// <summary>
     /// Current minimum level for the CloudLogger
     /// </summary>
     public LogLevel MinLevel { get; protected set; }
 
-    private static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
-
     /// <inheritdoc/>
-    public async void Log(LogLevel level, string message, string? _)
+    public void Log(LogLevel level, string message, string? _)
     {
         if (level >= MinLevel)
         {
-            var cloudLog = new CloudLog()
+            var log = new CloudLog()
             {
                 Severity = level.ToString(),
                 Message = message,
                 Timestamp = DateTime.UtcNow
             };
 
-            await Send(LogFilePath, cloudLog, Resolver.MeadowCloudService.SendLog);
+            Resolver.MeadowCloudService.SendLog(log);
         }
     }
 
@@ -77,7 +53,7 @@ public class CloudLogger : ILogProvider
     /// Log an exception.
     /// </summary>
     /// <param name="ex"></param>
-    public async void LogException(Exception ex)
+    public void LogException(Exception ex)
     {
         var log = new CloudLog()
         {
@@ -87,7 +63,7 @@ public class CloudLogger : ILogProvider
             Timestamp = DateTime.UtcNow
         };
 
-        await Send(LogFilePath, log, Resolver.MeadowCloudService.SendLog);
+        Resolver.MeadowCloudService.SendLog(log);
     }
 
     /// <summary>
@@ -96,7 +72,7 @@ public class CloudLogger : ILogProvider
     /// <param name="eventId">id used for a set of events.</param>
     /// <param name="description">Description of the event.</param>
     /// <param name="measurements">Dynamic payload of measurements to be recorded.</param>
-    public async void LogEvent(int eventId, string description, Dictionary<string, object> measurements)
+    public void LogEvent(int eventId, string description, Dictionary<string, object> measurements)
     {
         var cloudEvent = new CloudEvent()
         {
@@ -106,63 +82,6 @@ public class CloudLogger : ILogProvider
             Timestamp = DateTime.UtcNow
         };
 
-        await Send(EventFilePath, cloudEvent, Resolver.MeadowCloudService.SendEvent);
-    }
-
-    private async Task Send<T>(string file, T item, Func<T, Task> sendFunc)
-    {
-        var serializeOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-
-        var connected = Resolver.Device.NetworkAdapters.Any(a => a.IsConnected);
-
-        if (connected)
-        {
-            await semaphoreSlim.WaitAsync();
-
-            try
-            {
-                // send messages that were stored offline
-                var lines = File.ReadAllLines(file);
-                if (lines.Length > 0)
-                {
-                    Resolver.Log.Debug($"processing {lines.Length} stored {typeof(T)}");
-                    foreach (var line in lines)
-                    {
-                        if (string.IsNullOrWhiteSpace(line))
-                        {
-                            continue;
-                        }
-
-                        var o = JsonSerializer.Deserialize<T>(line, serializeOptions);
-                        if (o != null)
-                        {
-                            await sendFunc(o);
-                        }
-                    }
-
-                    using FileStream fs = File.Create(file);
-                    fs.Close();
-                    Resolver.Log.Debug($"cleared stored {typeof(T)}");
-                }
-
-                // send current message
-                Resolver.Log.Debug($"sending {typeof(T)}");
-                await sendFunc(item);
-            }
-            catch (Exception ex)
-            {
-                Resolver.Log.Debug($"error sending {typeof(T)}: {ex.Message}");
-            }
-            finally
-            {
-                semaphoreSlim.Release();
-            }
-        }
-        else
-        {
-            var json = JsonSerializer.Serialize(item, serializeOptions);
-            File.AppendAllLines(file, new[] { json });
-            Resolver.Log.Debug($"saved cloud log to local store {json}");
-        }
+        Resolver.MeadowCloudService.SendEvent(cloudEvent);
     }
 }
