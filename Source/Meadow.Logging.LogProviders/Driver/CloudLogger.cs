@@ -1,8 +1,6 @@
 using Meadow.Cloud;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading;
 
 namespace Meadow.Logging;
 
@@ -27,7 +25,7 @@ public class CloudLogger : ILogProvider
 
         MinLevel = level;
     }
-    
+
     /// <summary>
     /// Current minimum level for the CloudLogger
     /// </summary>
