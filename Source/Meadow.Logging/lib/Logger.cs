@@ -34,7 +34,7 @@ public class Logger
         public const string Application = "application";
     }
 
-    private LogProviderCollection _providers = new();
+    private readonly LogProviderCollection _providers = new();
 
     private readonly int _startupTicks;
 
