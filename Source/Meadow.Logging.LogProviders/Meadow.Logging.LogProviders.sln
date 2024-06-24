@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTnet", "..\..\..\MQTTnet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Core", "..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj", "{C6BCFC1F-FA6F-46CB-91B6-7F32F0A2562B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.F7", "..\..\..\Meadow.Core\source\implementations\f7\Meadow.F7\Meadow.F7.csproj", "{237FEFB7-1DB0-471D-B4EB-E4005E80D79B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.F7", "..\..\..\Meadow.Core\Source\implementations\f7\Meadow.F7\Meadow.F7.csproj", "{237FEFB7-1DB0-471D-B4EB-E4005E80D79B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UdpLogger_Sample", "Samples\UdpLogger_Sample\UdpLogger_Sample.csproj", "{A2180137-6CD6-4100-AC69-94BCC7808DBB}"
 EndProject
