@@ -257,7 +257,7 @@ public class Logger
             {
                 if (now != null)
                 {
-                    message = $"[+{now:HH\\:mm\\:ss\\.FFF}] {message}";
+                    message = $"[+{now:hh\\:mm\\:ss\\.FFF}] {message}";
                 }
 
                 p.Log(level, message, messageGroup);
