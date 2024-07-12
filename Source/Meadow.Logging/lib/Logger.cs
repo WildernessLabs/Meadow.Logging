@@ -32,6 +32,11 @@ public class Logger
         /// Represents the application-specific log messages.
         /// </summary>
         public const string Application = "application";
+
+        /// <summary>
+        /// Represents the log messages related to the ESP coprocessor.
+        /// </summary>
+        public const string Esp = "esp";
     }
 
     private readonly LogProviderCollection _providers = new();
@@ -44,7 +49,12 @@ public class Logger
     /// <remarks>
     /// To show message from all groups, either use `MessageGroup.All` <i>or</i> clear the ShowsGroups list
     /// </remarks>
-    public List<string> ShowGroups { get; } = new();
+    public List<string> GroupsToShow { get; } = new();
+
+    /// <summary>
+    /// Gets or sets a value indicating whether to show message groups in log messages
+    /// </summary>
+    public bool ShowGroup { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a value indicating whether to show ticks in log messages
@@ -62,7 +72,7 @@ public class Logger
     /// <param name="providers">A collection of providers to add to the Logger</param>
     public Logger(params ILogProvider[] providers)
     {
-        ShowGroups.Add(MessageGroup.Application);
+        GroupsToShow.Add(MessageGroup.Application);
 
         foreach (var p in providers)
         {
@@ -220,10 +230,10 @@ public class Logger
 
         if (messageGroup == null) messageGroup = MessageGroup.Application;
 
-        if (ShowGroups.Count > 0)
+        if (GroupsToShow.Count > 0)
         {
-            if (!ShowGroups.Contains(MessageGroup.All)
-                && !ShowGroups.Contains(messageGroup))
+            if (!GroupsToShow.Contains(MessageGroup.All)
+                && !GroupsToShow.Contains(messageGroup))
             {
                 return;
             }
@@ -238,11 +248,16 @@ public class Logger
                 now = TimeSpan.FromMilliseconds(Environment.TickCount - _startupTicks);
             }
 
+            if (ShowGroup && messageGroup != null)
+            {
+                message = $"[{messageGroup}] {message}";
+            }
+
             foreach (var p in _providers)
             {
                 if (now != null)
                 {
-                    message = $"[+{now:h\\:m\\:ss\\.FFF}] {message}";
+                    message = $"[+{now:hh\\:mm\\:ss\\.FFF}] {message}";
                 }
 
                 p.Log(level, message, messageGroup);
