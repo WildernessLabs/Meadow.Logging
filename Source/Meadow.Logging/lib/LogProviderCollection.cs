@@ -27,6 +27,18 @@ namespace Meadow.Logging
         }
 
         /// <summary>
+        /// Adds a Provider to the collection
+        /// </summary>
+        /// <param name="provider"></param>
+        public bool Remove(ILogProvider provider)
+        {
+            lock (Providers)
+            {
+                return Providers.Remove(provider);
+            }
+        }
+
+        /// <summary>
         /// Gets an Enumerator for the collection
         /// </summary>
         /// <returns></returns>

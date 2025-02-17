@@ -110,6 +110,18 @@ public class Logger
     }
 
     /// <summary>
+    /// Adds an ILogProvider to the providers collection
+    /// </summary>
+    /// <param name="provider"></param>
+    public bool RemoveProvider(ILogProvider provider)
+    {
+        lock (_providers)
+        {
+            return _providers.Remove(provider);
+        }
+    }
+
+    /// <summary>
     /// Sends a Trace-level message to all ILogProviders
     /// </summary>
     /// <param name="message">The message to send to Providers</param>
