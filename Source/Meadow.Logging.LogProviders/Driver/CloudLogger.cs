@@ -43,7 +43,7 @@ public class CloudLogger : ILogProvider
                 Timestamp = DateTime.UtcNow
             };
 
-            Resolver.MeadowCloudService.SendLog(log);
+            Resolver.MeadowCloudService.SendLog(log, CloudTelemetryPriority.Normal);
         }
     }
 
@@ -61,7 +61,7 @@ public class CloudLogger : ILogProvider
             Timestamp = DateTime.UtcNow
         };
 
-        Resolver.MeadowCloudService.SendLog(log);
+        Resolver.MeadowCloudService.SendLog(log, CloudTelemetryPriority.Normal);
     }
 
     /// <summary>
